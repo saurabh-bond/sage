@@ -10,7 +10,7 @@ class FetchCourse extends DBClass
         public function processBusinessRules()
         {
                 
-                $sql = 'SELECT * FROM course ORDER BY id DESC ';
+                $sql = 'SELECT * FROM course WHERE active = 1 ORDER BY id DESC ';
                 
                 /* Pagination Code starts */
                 $per_page_html = '';

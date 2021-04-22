@@ -4,7 +4,11 @@ require_once './Models/FetchCourse.php';
 
 class CourseController extends Controller
 {
-        
+        /**
+         * @desc This function is used to add course
+         * @params $name, $description
+         * @returns course creation view
+         */
         public static function addCourse()
         {
                 $data = [];
@@ -40,6 +44,11 @@ class CourseController extends Controller
                 
         }
         
+        /**
+         * @desc This function is used to display course list
+         * @params $requestedPage
+         * @returns course list view
+         */
         public static function courseList()
         {
                 $data = [];
@@ -52,6 +61,20 @@ class CourseController extends Controller
                 $data = array_merge($data, $output);
                 
                 StudentController::renderView('course-list', $data);
+        }
+        
+        /**
+         * @desc This function is remove selected course
+         * @params $courseId
+         */
+        public static function removeCourse()
+        {
+                $createCourseModel = new CreateCourseFM();
+                $createCourseModel->requestData = $_POST;
+                $createCourseModel->id = $_POST['id'];
+                $output = $createCourseModel->removeCourse();
+                echo json_encode($output);
+                die;
         }
         
 }

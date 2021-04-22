@@ -5,6 +5,11 @@ require_once './Models/FetchStudent.php';
 class StudentController extends Controller
 {
         
+        /**
+         * @desc This function is used to create student
+         * @params $firstname, $lastname, $dob, $contact_no
+         * @returns student registration view
+         */
         public static function registration()
         {
                 $data = [];
@@ -48,6 +53,11 @@ class StudentController extends Controller
                 
         }
         
+        /**
+         * @desc This function is for displaying student list
+         * @params $requestedPage
+         * @returns student list view
+         */
         public static function studentList()
         {
                 $data = [];
@@ -62,6 +72,10 @@ class StudentController extends Controller
                 StudentController::renderView('student-list', $data);
         }
         
+        /**
+         * @desc This function is used to remove student
+         * @params $studentId
+         */
         public static function removeStudent()
         {
                 $createStudentModel = new CreateStudentFM();

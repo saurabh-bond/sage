@@ -6,6 +6,10 @@ require_once './Models/FetchCourseSubscription.php';
 
 class CourseSubscriptionController extends Controller
 {
+        /**
+         * @desc This function is for student and course subscription
+         * @returns student and course dropdown list
+         */
         public static function courseSubscription()
         {
                 $data = [];
@@ -17,6 +21,10 @@ class CourseSubscriptionController extends Controller
                 CourseSubscriptionController::renderView('course-subscription', $data);
         }
         
+        /**
+         * @desc This function is used for course subscription
+         * @params $studentId, $courseId
+         */
         public static function courseSubscriptionAjaxHandler()
         {
                 $createCourseSubscription = new CreateCourseSubscription();
@@ -26,6 +34,10 @@ class CourseSubscriptionController extends Controller
                 die;
         }
         
+        /**
+         * @desc This function is for displaying subscribed course report
+         * @returns course subscription report
+         */
         public static function courseSubscriptionList()
         {
                 $data = [];

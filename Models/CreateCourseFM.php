@@ -57,6 +57,35 @@ class CreateCourseFM extends DBClass
                 return $inserted;
         }
         
+        public function removeCourse()
+        {
+                $recordExist = $this->selectQuery(
+                        "SELECT * FROM course WHERE id = :id AND active = :active",
+                        [
+                                ':id' => $this->requestData['id'],
+                                ':active' => 1
+                        ]
+                );
+                if (empty($recordExist['data'])) {
+                        return $this->sendResponse(200, null, 'Course details not found Or has already been deactivated.');
+                }
+                $rawQuery = "UPDATE `course` SET
+                                    `active` = :active,
+                                    `updated` = :updated
+                                    WHERE `course`.`id` = :id;";
+                $bindParams = array(
+                        ':active' => 0,
+                        ':updated' => time(),
+                        ':id' => $this->requestData['id'],
+                );
+                $inserted = $this->insertData($rawQuery, $bindParams);
+                if ($inserted['status'] == 200) {
+                        return $this->sendResponse(200, null, 'Course has been deactivated successfully.');
+                } else {
+                        return $this->sendResponse(400, null, 'Some error occurred, please try reloading the page.');
+                }
+        }
+        
         public function sendResponse($status, $err = null, $msg = "", $data = [])
         {
                 return ['status' => $status, 'error' => $err, 'message' => $msg, 'data' => $data];

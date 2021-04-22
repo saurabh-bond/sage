@@ -24,6 +24,10 @@ Route::call('course-list', function () {
         CourseController::courseList();
 });
 
+Route::call('removeCourseAjaxHandler', function () {
+        CourseController::removeCourse();
+});
+
 Route::call('course-subscription', function () {
         CourseSubscriptionController::courseSubscription();
 });

@@ -56,10 +56,13 @@ class DBClass
         public function insertData($query, $params = [])
         {
                 try {
+                        $this->_command->beginTransaction();
                         $pdo = $this->_command->prepare($query);
                         $pdo->execute($params);
+                        $this->_command->commit();
                         return $this->sendResponse(200, null, 'Record inserted successfully.');
                 } catch (Exception $e) {
+                        $this->_command->rollBack();
                         return $this->sendResponse(400, $e->getMessage(), 'Error in fetching data.');
                 }
         }
